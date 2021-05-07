@@ -3,12 +3,12 @@ import sys
 import random
 import os
 #Constantes
-WIDTH = 800
-HEIGHT = 600
+WIDTH = 1000
+HEIGHT = 800
 COLOR_RED = (255,0,0)
 COLOR_BLACK = (0,0,0)
 COLOR_BLUE = (0,0,255)
-SPEED = 20
+SPEED = 10
 
 
 #jugador
@@ -47,14 +47,14 @@ while not gameOver: #bucle principal
         if event.type == pygame.KEYDOWN:
             x = PLAYER_POSITION[0]
             y = PLAYER_POSITION[1]
-            if event.key == pygame.K_w:
-                y -= PLAYER_SIZE * SPEED / 10
-            if event.key == pygame.K_a:
-                x -= PLAYER_SIZE * SPEED / 10
-            if event.key == pygame.K_s:
-                y += PLAYER_SIZE * SPEED / 10
-            if event.key == pygame.K_d:
-                x += PLAYER_SIZE * SPEED / 10
+            if event.key == pygame.K_w and y != 0: 
+                y -= PLAYER_SIZE 
+            if event.key == pygame.K_a and x != 0:
+                x -= PLAYER_SIZE 
+            if event.key == pygame.K_s and y != HEIGHT - PLAYER_SIZE:
+                y += PLAYER_SIZE 
+            if event.key == pygame.K_d and x != WIDTH - PLAYER_SIZE:
+                x += PLAYER_SIZE 
 
             PLAYER_POSITION[0] = x
             PLAYER_POSITION[1] = y
@@ -80,6 +80,6 @@ while not gameOver: #bucle principal
     pygame.draw.rect(window , COLOR_RED,
                     (PLAYER_POSITION[0],PLAYER_POSITION[1],
                     PLAYER_SIZE, PLAYER_SIZE))
-    clock.tick(30)
-    SPEED += 0.01
+    clock.tick(60)
+    SPEED += 0.001
     pygame.display.update()
