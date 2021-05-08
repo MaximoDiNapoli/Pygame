@@ -1,4 +1,5 @@
 import pygame
+from pygame.locals import *
 import sys
 import random
 import os
@@ -9,7 +10,10 @@ COLOR_RED = (255,0,0)
 COLOR_BLACK = (0,0,0)
 COLOR_BLUE = (0,0,255)
 SPEED = 10
+SCOREINT = 0
+SCORE = str(SCOREINT + 1)
 
+COLOR_WHITE = (255, 255, 255)
 
 #jugador
 
@@ -38,7 +42,9 @@ def detectCollision(PLAYER_POSITION,ENEMY_POSITION):
             return True
     return False
 
+pygame.init()
 while not gameOver: #bucle principal 
+    FUENTE = pygame.font.Font(None, 20)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -67,12 +73,15 @@ while not gameOver: #bucle principal
     else:
         ENEMY_POSITION[0] = random.randint(0, WIDTH - ENEMY_SIZE)
         ENEMY_POSITION[1] = 0
-
+    SCOREINT += 1
+    SCORE = str(SCOREINT + 1)
     #coliciones
     if detectCollision(PLAYER_POSITION, ENEMY_POSITION):
         gameOver = True
     
     #dibujar enemigo
+    ScoreShow = FUENTE.render(SCORE, 1, COLOR_WHITE)
+    window.blit(ScoreShow, (15, 10))
     pygame.draw.rect(window , COLOR_BLUE,
                     (ENEMY_POSITION[0],ENEMY_POSITION[1],
                     ENEMY_SIZE, ENEMY_SIZE))
